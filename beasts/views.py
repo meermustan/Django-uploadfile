@@ -1,6 +1,8 @@
+from json import detect_encoding
 from django.shortcuts import render
 from .forms import BeastForm
 from django.http import HttpResponseRedirect
+from .models import Beast
 
 def entry(request):
     if request.method == 'POST':
@@ -11,7 +13,8 @@ def entry(request):
             return HttpResponseRedirect("/") 
     else:
         form = BeastForm()
-
+        query = Beast.objects.all().order_by('-create_date')
     return render(request, "entry.html", {
-        "form": form
+        "form": form,
+        "query": query
     })

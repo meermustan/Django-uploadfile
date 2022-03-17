@@ -5,21 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fantastic Beasts</title>
+    <style>
+        body{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .images{
+            max-width: 300px;
+            max-height: 200px;
+            padding: 5%;
+            margin: 5% 30px;
+            border-radius: 2px;
+            border: 2px solid black;
+            transition: all 600ms;
+            opacity: 0.7;
+            cursor: pointer;
+            
+        }
+        .images:hover{
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        .images-outer{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 80%;
+            margin: auto;
+        }
+        form{
+            margin: 4%;
+        }
+        .button{
+            background-color: rgb(38, 40, 40);
+            padding:.5% 1%;
+            color: white;
+            border: 1px solid rgb(34, 34, 36);
+            border-radius: 5px;
+            margin: .5% 0%;
+
+        }
+        .gallery-heading{
+            text-align: center;
+        }
+    </style>
+
 </head>
 <body>
     <form action="/" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% for entry in form %}
-           <div>
-                {{ entry.label_tag }}
-           </div>
-           <div>
+           <h2>Upload File</h2>
+           <div class="fileInput-outer">
                {{entry}}
            </div>
         {% endfor %}
-        <button>
+        <button class="button">
             Save!
         </button>
     </form>
+    {% if query%}
+    <h1 class="gallery-heading">Images Gallery</h1>
+    <div class="images-outer">
+        {% for file in query %}
+        <div><img class="images" src=" /media/{{file.media}} " ></div>
+        {% endfor %}
+    </div>
+    {% endif %}
 </body>
 </html>
