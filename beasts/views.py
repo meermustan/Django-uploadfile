@@ -1,6 +1,5 @@
-from json import detect_encoding
+
 from django.shortcuts import render
-from .forms import BeastForm
 from django.http import HttpResponseRedirect
 from .models import Beast
 
