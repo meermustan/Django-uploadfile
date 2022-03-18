@@ -54,12 +54,8 @@
 <body>
     <form action="/" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for entry in form %}
-           <h2>Upload File</h2>
-           <div class="fileInput-outer">
-               {{entry}}
-           </div>
-        {% endfor %}
+        <h2>Upload File</h2>
+        <input type="file" name="media" multiple>
         <button class="button">
             Save!
         </button>

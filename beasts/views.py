@@ -6,15 +6,11 @@ from .models import Beast
 
 def entry(request):
     if request.method == 'POST':
-        form = BeastForm(request.POST, request.FILES)
-        
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect("/") 
+        for item in request.FILES.getlist('media'):
+            Beast.objects.update_or_create(media=item)
+        return HttpResponseRedirect("/") 
     else:
-        form = BeastForm()
         query = Beast.objects.all().order_by('-create_date')
-    return render(request, "entry.html", {
-        "form": form,
-        "query": query
-    })
+        return render(request, "entry.html", {
+            "query": query
+        })
